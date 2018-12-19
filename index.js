@@ -1,13 +1,2 @@
-const express = require("express")
-const server = express()
-var users = [
-    {
-        username: 'John',
-    }
-]
-
-server.get('/users', (request, response) => {
-    response.json(users)
-})
-
+const server = require('./server')
 server.listen(3000)
