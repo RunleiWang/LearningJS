@@ -6,8 +6,8 @@
   "scripts": {
     "start": "nodemon index.js",
     "test": "jest --watch",
-    "dev": "parcel index.js",
-    "build": "parcel build index.js"
+    "dev": "parcel index.html",
+    "build": "parcel build index.html"
   },
   "author": "",
   "license": "ISC",
@@ -16,7 +16,9 @@
     "axiosist": "^0.1.yar1",
     "express": "^4.16.4",
     "jest": "^23.6.0",
-    "nodemon": "^1.18.8"
+    "nodemon": "^1.18.8",
+    "react": "^16.6.3",
+    "react-dom": "^16.6.3"
   },
   "devDependencies": {
     "parcel-bundler": "^1.11.0"
