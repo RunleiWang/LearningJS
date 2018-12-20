@@ -1,29 +1,9 @@
-//const server = require('./server')
-//server.listen(3000)
+const server = require('./server')
+const Bundlers = require('parcel-bundler')
 
-import React from 'react'
-import ReactDOM from 'react-dom'
+let bundler = new Bundlers('./public/index.html')
+server.use(bundler.middleware())
 
-//component
-function RL(){
-    return <div>
-            <ul id="ul">
-                <li className="item">runlei</li>
-                <li className="item">runlei</li>
-                <li className="item">runlei</li>
-                <li className="item">runlei</li>
-            </ul>
-            <p>Runlei Wang</p>
-        <RN/>
-    </div>
+server.listen(3000)
 
-}
 
-function RN(){
-    return  <p>llll</p>
-
-}
-
-ReactDOM.render(
-    <RL />, document.getElementById('root')
-)
