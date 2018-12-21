@@ -15,4 +15,10 @@ server.get('/users', (request, response) => {
     response.json(users)
 })
 
+server.put('/users',(request, response)=>{
+    var user = request.body
+    users.slice(user,1)
+    response.json(user)
+})
+
 module.exports = server

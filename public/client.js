@@ -16,22 +16,20 @@ function handleChange(e) {
 }
 //component
 function RL(){
-
     const [users,setUsers] = React.useState([])  //react var
     console.log('new user',users)
 
     async function creatUser(){
         var response = await axios.post('users', {username: user})
-        // users.push(response.data)
-        // setUsers(users)
         console.log(users)
         var response = await axios.get('/users')
         console.log(response.data)
         setUsers(response.data)
     }
+
     return <div>
+        <p>Create username:</p>
         <input onChange={handleChange}/>
-        <p>Runlei Wang</p>
         <button onClick={creatUser}>Create</button>
         {/*<ul>{users.map(*/}
             {/*function (user) {*/}
@@ -40,13 +38,23 @@ function RL(){
         {/*)}</ul>*/}
         <Create users={users}/>
     </div>
+}
+
+async function deleteUser(index){
+    var response = await axios.put('users', {index: index})
+    console.log(users)
+    var response = await axios.get('/users')
+    console.log(response.data)
+    setUsers(response.data)
 
 }
 
 function Create(props) {
     return      <ul>{props.users.map(
-        function (user) {
-            return <li>{user.username}</li>
+        function (user, index) {
+            return <li>{user.username}
+            <button onClick={()=>deleteUser(index)}>delete</button>
+            </li>
         }
     )}</ul>
 }
