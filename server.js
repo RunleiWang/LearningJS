@@ -15,10 +15,11 @@ server.get('/users', (request, response) => {
     response.json(users)
 })
 
-server.put('/users',(request, response)=>{
-    var user = request.body
-    users.slice(user,1)
-    response.json(user)
+server.delete('/users/:id',(request, response)=>{
+    var index = request.params.id
+    console.log(index);
+    users = users.filter((user, i) => i != index)
+    response.json(null)
 })
 
 module.exports = server

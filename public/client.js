@@ -4,23 +4,22 @@ import ReactDOM from 'react-dom'
 import axios from 'axios'
 import 'babel-polyfill'
 
-
-var user
-
-async function getUsers(){
-    axios.get('/users')
-}
-
-function handleChange(e) {
-    user = e.target.value
-}
 //component
-function RL(){
+function Users(){
     const [users,setUsers] = React.useState([])  //react var
-    console.log('new user',users)
+    const [nameInput, setNameInput] = React.useState()
+
+    function handleChange(e) {
+        setNameInput(e.target.value)
+    }
+
+    React.useEffect(async () => {
+        var response = await axios.get('/users')
+        setUsers(response.data)
+    }, [])
 
     async function creatUser(){
-        var response = await axios.post('users', {username: user})
+        await axios.post('users', {username: nameInput})
         console.log(users)
         var response = await axios.get('/users')
         console.log(response.data)
@@ -31,26 +30,19 @@ function RL(){
         <p>Create username:</p>
         <input onChange={handleChange}/>
         <button onClick={creatUser}>Create</button>
-        {/*<ul>{users.map(*/}
-            {/*function (user) {*/}
-                {/*return <li>{user.username}</li>*/}
-            {/*}*/}
-        {/*)}</ul>*/}
-        <Create users={users}/>
+        <CreateUser users={users} setUsers={setUsers} />
     </div>
 }
 
-async function deleteUser(index){
-    var response = await axios.put('users', {index: index})
-    console.log(users)
-    var response = await axios.get('/users')
-    console.log(response.data)
-    setUsers(response.data)
+function CreateUser(props) {
+    async function deleteUser(index){
+        await axios.delete('users/' + index)
+        var response = await axios.get('/users')
+        console.log(response.data)
+        props.setUsers(response.data)
+    }
 
-}
-
-function Create(props) {
-    return      <ul>{props.users.map(
+    return <ul>{props.users.map(
         function (user, index) {
             return <li>{user.username}
             <button onClick={()=>deleteUser(index)}>delete</button>
@@ -60,5 +52,5 @@ function Create(props) {
 }
 
 ReactDOM.render(
-    <RL />, document.getElementById('root')
+    <Users />, document.getElementById('root')
 )
