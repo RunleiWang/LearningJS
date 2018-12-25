@@ -35,17 +35,17 @@ function Users(){
 }
 
 function CreateUser(props) {
-    async function deleteUser(index){
-        await axios.delete('users/' + index)
+    async function deleteUser(id){
+        await axios.delete('users/' + id)
         var response = await axios.get('/users')
         console.log(response.data)
         props.setUsers(response.data)
     }
 
     return <ul>{props.users.map(
-        function (user, index) {
+        function (user) {
             return <li>{user.username}
-            <button onClick={()=>deleteUser(index)}>delete</button>
+            <button onClick={()=>deleteUser(user.id)}>delete</button>
             </li>
         }
     )}</ul>

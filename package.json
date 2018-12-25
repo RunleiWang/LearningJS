@@ -21,7 +21,9 @@
     "nodemon": "^1.18.8",
     "parcel-bundler": "^1.11.0",
     "react": "^16.7.0-alpha.2",
-    "react-dom": "^16.7.0-alpha.2"
+    "react-dom": "^16.7.0-alpha.2",
+    "sqlite": "^3.0.0",
+    "uuid": "^3.3.2"
   },
   "devDependencies": {}
 }
