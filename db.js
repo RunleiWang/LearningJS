@@ -1,5 +1,48 @@
 const sqlite = require('sqlite')
 
+const dbPromise = (async () => {
+    const db = await sqlite.open(':memory:')
+    await db.run(`
+        CREATE TABLE IF NOT EXISTS users (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            username VARCHAR(255) NOT NULL
+        )
+    `)
+    return db
+})()
+
+async function getUsers() {
+    const db = await dbPromise
+    let result = await db.all(`
+        SELECT * FROM users
+    `)
+    return result
+ }
+
+ async function createUser(username){
+     const db = await dbPromise
+     db.run(`
+        INSERT INTO users
+            (username)
+        VALUES ('${username}')
+    `)
+
+ }
+
+ async function deleteUser(id){
+     const db = await dbPromise
+     db.run(`
+        DELETE FROM users
+        WHERE id = ${id}
+    `)
+ }
+
+
+ module.exports = {
+     getUsers,
+     createUser,
+     deleteUser
+ }
 
 
 // ;(async () => {

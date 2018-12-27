@@ -1,4 +1,3 @@
-//import React from 'react'
 const React = require('react')
 import ReactDOM from 'react-dom'
 import axios from 'axios'
@@ -14,31 +13,30 @@ function Users(){
     }
 
     React.useEffect(async () => {
-        var response = await axios.get('/users')
+        let response = await axios.get('/users')
         setUsers(response.data)
     }, [])
 
-    async function creatUser(){
+    async function CreateUser(){
         await axios.post('users', {username: nameInput})
-        console.log(users)
-        var response = await axios.get('/users')
-        console.log(response.data)
+        let response = await axios.get('/users')
         setUsers(response.data)
     }
 
     return <div>
         <p>Create username:</p>
         <input onChange={handleChange}/>
-        <button onClick={creatUser}>Create</button>
-        <CreateUser users={users} setUsers={setUsers} />
+        <button onClick={CreateUser}>Create</button>
+        <UserList users={users} setUsers={setUsers} />
     </div>
 }
 
-function CreateUser(props) {
+function UserList(props) {
+    console.log(props.users)
+
     async function deleteUser(id){
         await axios.delete('users/' + id)
-        var response = await axios.get('/users')
-        console.log(response.data)
+        let response = await axios.get('/users')
         props.setUsers(response.data)
     }
 
